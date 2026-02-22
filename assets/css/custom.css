@@ -63,6 +63,7 @@
 
 /* Footer under content, not in the empty sidebar space */
 .wrapper footer {
+  position: static !important;
   width: 100%;
   margin-left: 0 !important;
   padding-left: 20px;
