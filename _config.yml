@@ -1,0 +1,15 @@
+# GitHub Pages / Jekyll
+title: AI Docs
+description: Documentation pages
+baseurl: ""
+url: ""
+
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: default
+
+theme: jekyll-theme-minimal
+show_excerpts: true
