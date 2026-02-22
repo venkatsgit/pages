@@ -249,20 +249,31 @@ Without a good prediction (y_hat), we wouldn't know the Error. Without the inter
 - **slope_before:** The slope from the *previous* hour. At hour 5 it is 0 (start). At hour 6 it is 83.26 (the slope we had after hour 5).
 - **slope_after:** `slope_after = slope_before + K_slope × Error`. Example at hour 6: slope_before=83.26, K_slope=0.11, Error=−66 → slope_after = 83.26 + 0.11×(−66) = **76.09**.
 
-**Why does Kalman alert when slope is decreasing?** The alert is when **slope exceeds a threshold** (e.g. slope > 0.5), not when slope is increasing. In our example, slope falls from 83 → 76 → 67 → … → 8, but it stays **above 0.5** the whole time. So we still alert. A decreasing slope means the model is adjusting toward a gentler trend, but 45 or 33 or 8 are all “too steep” compared to the threshold. We care that the slope is high, not that it is rising.
+**How slope (kPa/h) is computed (same idea, different formulation):**
 
-| Hour | Value | t | slope (before) | intercept (before) | y_hat = t×slope+intercept | K (slope, intercept) | Error | Slope (after) | Alert? |
-|------|-------|---|-----------------|--------------------|---------------------------|----------------------|-------|---------------|--------|
-| 1–4 | 451–452 | — | — | — | — | — | — | — | 0 | No (warming up) |
-| 5 | 449.6 | 5 | 0 | 0 | 5×0+0 = **0** | 0.19, 0.04 | 449.6 | 83.26 | Yes |
-| 6 | 449.6 | 6 | 83.26 | 16.65 | 6×83.26+16.65 = **516** | 0.11, −0.06 | −66 | 76.09 | Yes |
-| 7 | 452.4 | 7 | 76.09 | 20.75 | 7×76.09+20.75 = **553** | 0.08, −0.12 | −101 | 67.67 | Yes |
-| 8 | **465.0** | 8 | 67.67 | 33.36 | 8×67.67+33.36 = **575** | 0.07, −0.17 | −110 | 59.95 | Yes |
-| 9 | 465.8 | 9 | 59.95 | 51.55 | 9×59.95+51.55 = **591** | 0.06, −0.19 | −125 | 52.29 | Yes |
-| 10 | 465.5 | 10 | 52.29 | 75.29 | 10×52.29+75.29 = **598** | 0.05, −0.20 | −133 | **45.18** | **Yes** |
-| 11 | 467.5 | 11 | 45.18 | 101.95 | 11×45.18+102 = **599** | 0.05, −0.20 | −131 | 38.99 | Yes |
-| 12 | 467.5 | 12 | 38.99 | 128.75 | 12×39+129 = **597** | 0.04, −0.20 | −129 | 33.63 | Yes |
-| 13–24 | 469–480 | 13–24 | 9–34 | 155–317 | 544–591 | 0.01–0.04 | −75 to −122 | 8.7–29.1 | Yes |
+Both **slope (after)** and **slope (kPa/h)** estimate the same thing — how fast the value is trending. The table uses a Kalman formulation where slope and intercept live in a different scale. To get slope in kPa/hour, we use a **level + slope** tracker (e.g. alpha-beta):
+
+- `level = level + α × (value − level)` — smooth the value
+- `slope = slope + β × (value − level − slope)` — update slope from the "surprise" (value − level − slope)
+
+Here `level` and `value` are in kPa, and we update each hour, so `slope` stays in kPa/hour. Start: level = value₁, slope = 0. Each new `value` gives a new `slope`. The **slope (kPa/h)** column in the table is this slope. Same recursive idea as slope (after), but the formulation keeps units as kPa/hour.
+
+**Why the threshold 0.5 kPa/hour?** The alert is when **slope exceeds a threshold** (e.g. slope > 0.5), not when slope is increasing. In our example, slope rises from 0.26 → 0.33 → 0.49 → 0.53 → … → 0.92, slopes 0.26–0.49 are below 0.5; 0.53–0.92 are above. We alert when slope crosses 0.5 (around hour 15). The threshold 0.5 kPa/hour is a tuning choice — for a flat baseline, 0.5 means 12 kPa drift over 24 hours. The step-by-step table below uses different units (slope 83, 76, etc.) for illustration; the slope values that matter for the alert are in kPa/hour (0–0.92) and cross 0.5 around hour 15. The table's slope column (83, 76, 45, etc.) uses a different internal scale, not kPa/hour
+
+| Hour | Value | t | slope (before) | intercept (before) | y_hat = t×slope+intercept | K (slope, intercept) | Error | Slope (after) | slope (kPa/h) | Alert? (slope &gt; 0.5) |
+|------|-------|---|-----------------|--------------------|---------------------------|----------------------|-------|---------------|---------------|--------------------------|
+| 1–4 | 451–452 | — | — | — | — | — | — | — | ~0 | No (warming up) |
+| 5 | 449.6 | 5 | 0 | 0 | 5×0+0 = **0** | 0.19, 0.04 | 449.6 | 83.26 | −0.00 | No |
+| 6 | 449.6 | 6 | 83.26 | 16.65 | 6×83.26+16.65 = **516** | 0.11, −0.06 | −66 | 76.09 | −0.01 | No |
+| 7 | 452.4 | 7 | 76.09 | 20.75 | 7×76.09+20.75 = **553** | 0.08, −0.12 | −101 | 67.67 | 0.01 | No |
+| 8 | **465.0** | 8 | 67.67 | 33.36 | 8×67.67+33.36 = **575** | 0.07, −0.17 | −110 | 59.95 | 0.10 | No |
+| 9 | 465.8 | 9 | 59.95 | 51.55 | 9×59.95+51.55 = **591** | 0.06, −0.19 | −125 | 52.29 | 0.19 | No |
+| 10 | 465.5 | 10 | 52.29 | 75.29 | 10×52.29+75.29 = **598** | 0.05, −0.20 | −133 | **45.18** | 0.26 | No |
+| 11 | 467.5 | 11 | 45.18 | 101.95 | 11×45.18+102 = **599** | 0.05, −0.20 | −131 | 38.99 | 0.33 | No |
+| 12 | 467.5 | 12 | 38.99 | 128.75 | 12×39+129 = **597** | 0.04, −0.20 | −129 | 33.63 | 0.38 | No |
+| 13–24 | 469–480 | 13–24 | 9–34 | 155–317 | 544–591 | 0.01–0.04 | −75 to −122 | 8.7–29.1 | 0.44–0.92 | Yes (from h15) |
+
+*Slope (after): Kalman state (different scale). **slope (kPa/h)**: from level+slope tracker above; drift rate in kPa/hour; alert when &gt; 0.5.*
 
 ---
 
