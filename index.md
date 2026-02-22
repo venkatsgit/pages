@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Home
+title: Layman AI
 ---
 
-# AI Docs
+# Layman AI
 
-Documentation and notes.
+As the name suggests, this page is about **easy understanding of AI concepts and their intuition** — explained in plain language.
 
-## Pages
+---
 
-- [vLLM — Why do we need it?](vllm) — The vLLM story: attention, KV cache, PagedAttention, batching, speculative decoding.
+[LinkedIn](https://www.linkedin.com/in/venkatesh-subramanian-377451b4/) · [Medium](https://medium.com/@venkatsv)

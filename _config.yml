@@ -1,8 +1,8 @@
 # GitHub Pages / Jekyll
-title: AI Docs
-description: Documentation pages
-baseurl: ""
-url: ""
+title: Layman AI
+description: Easy understanding of AI concepts and their intuition
+baseurl: "/pages"
+url: "https://venkatsgit.github.io"
 
 defaults:
   - scope:
