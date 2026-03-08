@@ -76,13 +76,13 @@ How much each dog "vibrates" around its own group's average.
 | 10 | 74 | 74 - 76.3 = **-2.3** | (-2.3) * (-2.3) = **5.29** |
 | **TOTAL** | | | **100.1** |
 
-1.  **Average of Squares:** $100.1 \div 10 = \mathbf{10.01}$.
-2.  **The Chaos (SD):** $\sqrt{10.01} \approx \mathbf{3.16 \text{ minutes}}$.
+1.  **Average of Squares:** 100.1 / 10 = **10.01**.
+2.  **The Chaos (SD):** Square root of 10.01 = **3.16 minutes**.
 
 ### B2. The Verdict (Group A vs B)
-1.  **Difference:** $76.3 - 60 = \mathbf{16.3 \text{ minutes}}$.
-2.  **Luck Ruler (SE):** $3.16 \div \sqrt{10} = \mathbf{1.0 \text{ minute}}$.
-3.  **Z-score (GPS):** $16.3 \div 1.0 = \mathbf{16.3}$.
+1.  **Difference:** 76.3 - 60 = **16.3 minutes**.
+2.  **Luck Ruler (SE):** 3.16 / square root of 10 = **1.0 minute**.
+3.  **Z-score (GPS):** 16.3 / 1.0 = **16.3**.
 4.  **Verdict:** Since 16.3 is way bigger than 2, **the claim is TRUE.**
 
 ---
@@ -107,13 +107,13 @@ How much each dog "vibrates" around its own group's average.
 | 10 | 60 | 60 - 60.2 = **-0.2** | (-0.2) * (-0.2) = **0.04** |
 | **TOTAL** | | | **15.6** |
 
-1.  **Average of Squares:** $15.6 \div 10 = \mathbf{1.56}$.
-2.  **The Chaos (SD):** $\sqrt{1.56} \approx \mathbf{1.25 \text{ minutes}}$.
+1.  **Average of Squares:** 15.6 / 10 = **1.56**.
+2.  **The Chaos (SD):** Square root of 1.56 = **1.25 minutes**.
 
 ### C2. The Verdict (Group A vs C)
-1.  **Difference:** $60.2 - 60 = \mathbf{0.2 \text{ minutes}}$.
-2.  **Luck Ruler (SE):** $1.25 \div \sqrt{10} = \mathbf{0.4 \text{ minutes}}$.
-3.  **Z-score (GPS):** $0.2 \div 0.4 = \mathbf{0.5}$.
+1.  **Difference:** 60.2 - 60 = **0.2 minutes**.
+2.  **Luck Ruler (SE):** 1.25 / square root of 10 = **0.4 minutes**.
+3.  **Z-score (GPS):** 0.2 / 0.4 = **0.5**.
 4.  **Verdict:** Since 0.5 is less than 2, **the claim is FALSE.**
 
 ---
@@ -133,13 +133,13 @@ How much each dog "vibrates" around its own group's average.
 | 10 | 135 | 135 - 75 = **60** | (60) * (60) = **3600** |
 | **TOTAL** | | | **9000** |
 
-1.  **Average of Squares:** $9000 \div 10 = \mathbf{900}$.
-2.  **The Chaos (SD):** $\sqrt{900} = \mathbf{30 \text{ minutes}}$.
+1.  **Average of Squares:** 9000 / 10 = **900**.
+2.  **The Chaos (SD):** Square root of 900 = **30 minutes**.
 
 ### D2. The Verdict (Group A vs D)
-1.  **Difference:** $75 - 60 = \mathbf{15 \text{ minutes}}$.
-2.  **Luck Ruler (SE):** $30 \div \sqrt{10} = \mathbf{9.49 \text{ minutes}}$. (The "Luck Ruler" is huge because the dogs are so different!)
-3.  **Z-score (GPS):** $15 \div 9.49 = \mathbf{1.58}$.
+1.  **Difference:** 75 - 60 = **15 minutes**.
+2.  **Luck Ruler (SE):** 30 / square root of 10 = **9.49 minutes**. (The "Luck Ruler" is huge because the dogs are so different!)
+3.  **Z-score (GPS):** 15 / 9.49 = **1.58**.
 4.  **P-value:** A Z-score of 1.58 is only a small step away from the Peak. The P-value is **11%**.
 
 **Verdict:** 11% is higher than our 5% limit. Even though the "average" looked good, it was only because of two crazy dogs. **The claim is FALSE for Group D.**
