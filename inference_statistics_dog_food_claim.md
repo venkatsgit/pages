@@ -1,5 +1,7 @@
 # 🐶 The "Super Kibble" Science Experiment: A Beginner's Primer
 
+![Super Kibble Experiment Overview](images/dog_food_experiment.png)
+
 Imagine a company claims their new **"Super Kibble"** makes dogs run more. Since we can't test every dog in Singapore, we pick **30 dogs** for our test.
 
 *   **Group A (10 dogs):** They eat regular food. (**The Baseline**)
@@ -33,6 +35,8 @@ Before the math, let's understand the tools we are using:
 ---
 
 ## 📊 The "Cheat Sheet": Z-score to P-value
+
+![Z-score to P-value Guide](images/pvalue_zscore_guide.png)
 
 This table shows how "Luck" disappears as your Z-score gets bigger:
 
