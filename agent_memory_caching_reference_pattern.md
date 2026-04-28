@@ -427,7 +427,7 @@ For each request:
 
 ---
 
-## Final sketch (text diagram)
+## AI Agent Memory Orchestration
 
 ```text
 User Query
