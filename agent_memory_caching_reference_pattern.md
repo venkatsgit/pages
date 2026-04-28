@@ -429,31 +429,7 @@ For each request:
 
 ## AI Agent Memory Orchestration
 
-```text
-User Query
-   |
-   v
-[Normalize + Entity Extract]
-   |
-   +--> [Exact Cache] ---- hit --> [Return]
-   |
-   +--> [Vector Store] --- hit --> [Reuse/Refresh -> Return]
-   |
-   v
-[Intent + LAS Workflow]
-   |
-   v
-[Tool/API Calls]
-   |
-   v
-[LLM Response Synthesis]
-   |
-   v
-[Write-back: Exact Cache + Vector + LAS + LTM]
-   |
-   v
-[Final Response]
-```
+![AI Agent Memory Orchestration](assets/ai-agent-memory-orchestration.png)
 
 ---
 
